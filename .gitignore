@@ -1,0 +1,20 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Foundry build artifacts
+cache/
+out/
+
+# Deployment artifacts
+broadcast/
+
+# Logs
+.logs/
+
+# Documentation drafts
+docs/
+
+# OS files
+.DS_Store
