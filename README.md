@@ -1,66 +1,94 @@
-## Foundry
+# ProofPass
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized proof-of-participation system built with Solidity and Foundry.
 
-Foundry consists of:
+ProofPass allows an organizer to create events, register participants, manage participant records, and update event statuses through a smart contract deployed on the Ethereum Sepolia test network.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Live Deployment
 
-## Documentation
+**Network:** Ethereum Sepolia Testnet
 
-https://book.getfoundry.sh/
+**Contract Address:**
 
-## Usage
+`0xFBb42a493E50BD3153CBF5C4740831da9c7abd51`
 
-### Build
+**Verified Contract:**
 
-```shell
-$ forge build
-```
+[View ProofPass on Sepolia Etherscan](https://sepolia.etherscan.io/address/0xFBb42a493E50BD3153CBF5C4740831da9c7abd51)
 
-### Test
+**Deployment Transaction:**
 
-```shell
-$ forge test
-```
+[View Deployment Transaction](https://sepolia.etherscan.io/tx/0xe0afcd5a5e2c44c0838141c8d610116dd4d1879e2ac621dad1825a4fae464c2f)
 
-### Format
+---
 
-```shell
-$ forge fmt
-```
+## Project Overview
 
-### Gas Snapshots
+ProofPass is a blockchain-based event participation system designed to provide a transparent and tamper-resistant way to manage event participation records.
 
-```shell
-$ forge snapshot
-```
+The project demonstrates how Solidity smart contracts can be used to manage participants and events while enforcing access control and validating user input directly on-chain.
 
-### Anvil
+The current version focuses on the core smart contract architecture and does not yet include a frontend application.
 
-```shell
-$ anvil
-```
+---
 
-### Deploy
+## Features
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+### Event Management
 
-### Cast
+- Create events with:
+  - Event ID
+  - Name
+  - Description
+  - Start time
+  - End time
+  - Location
+  - Status
+- Automatically assign unique event IDs.
+- Update event status.
+- Prevent invalid event times.
+- Prevent empty event names, descriptions, and statuses.
 
-```shell
-$ cast <subcommand>
-```
+### Participant Management
 
-### Help
+- Register participants.
+- Prevent duplicate participant registration.
+- Prevent zero-address registration.
+- Update participant addresses.
+- Remove participants.
+- Retrieve the complete participant list.
+- Check whether an address is registered.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+### Access Control
+
+The contract uses the deployer as the event organizer.
+
+Organizer-only functions include:
+
+- Creating events
+- Registering participants
+- Updating participants
+- Removing participants
+- Updating event status
+
+Unauthorized users are rejected by the smart contract.
+
+### Events
+
+The contract emits events for important state changes:
+
+- `ParticipantRegistered`
+- `ParticipantUpdated`
+- `ParticipantRemoved`
+- `EventStatusUpdated`
+- `EventCreated`
+
+---
+
+## Smart Contract Architecture
+
+The project currently consists of one main smart contract:
+
+```text
+src/
+└── proofpass.sol
